@@ -4,5 +4,4 @@
 /.gitignore
 /.npmignore
 /.travis.yml
-/webpack.*
 /example/
