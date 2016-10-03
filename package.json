@@ -1,6 +1,6 @@
 {
   "name": "d3-cluster",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "description": "d3 clustering layout",
   "main": "index.js",
   "scripts": {
@@ -32,5 +32,18 @@
     "systemjs": "^0.19.39",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stormpython/d3-cluster.git"
+  },
+  "keywords": [
+    "clustering",
+    "d3",
+    "scatterplot"
+  ],
+  "bugs": {
+    "url": "https://github.com/stormpython/d3-cluster/issues"
+  },
+  "homepage": "https://github.com/stormpython/d3-cluster#readme"
 }
