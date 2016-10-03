@@ -1,6 +1,6 @@
 {
   "name": "d3-cluster",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "d3 clustering layout",
   "main": "index.js",
   "scripts": {
