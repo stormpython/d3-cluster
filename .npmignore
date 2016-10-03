@@ -1,7 +1,6 @@
 *.log
 /.*/
 /build/
-/.eslint*
 /.gitignore
 /.npmignore
 /.travis.yml
