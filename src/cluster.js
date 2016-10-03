@@ -5,7 +5,7 @@ import { cloneDeep, first, flattenDeep, isFunction, isNumber } from 'lodash';
 export default function cluster() {
   let x = d => d[0];
   let y = d => d[1];
-  let tolerance = 5000;
+  let tolerance = 0;
   let xScale = scaleLinear();
   let yScale = scaleLinear();
   let centroid = (p0, p1) => (p1 + p0) / 2;
