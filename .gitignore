@@ -1,6 +1,5 @@
-example
-build
-coverage
+*.sublime-workspace
+.DS_Store
+build/
 node_modules
 npm-debug.log
-.DS_Store

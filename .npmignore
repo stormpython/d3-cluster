@@ -1,7 +1,3 @@
-*.log
-/.*/
-/build/
-/.gitignore
-/.npmignore
-/.travis.yml
-/example/
+*.sublime-*
+build/*.zip
+test/

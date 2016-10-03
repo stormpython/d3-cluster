@@ -1,7 +1,0 @@
-build/*
-example/*
-dist/*
-node_modules/*
-**/node_modules/*
-tools/*
-tests.webpack.js
