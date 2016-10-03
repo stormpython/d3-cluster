@@ -1,0 +1,7 @@
+{
+  "presets": ["es2015"],
+  "plugins": [
+    "lodash",
+    "add-module-exports"
+  ]
+}

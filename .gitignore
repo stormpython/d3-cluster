@@ -1,0 +1,6 @@
+example
+build
+coverage
+node_modules
+npm-debug.log
+.DS_Store

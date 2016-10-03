@@ -1,0 +1,36 @@
+{
+  "name": "d3-cluster",
+  "version": "1.0.0",
+  "description": "d3 clustering layout",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "Shelby Sturgis",
+  "license": "MIT",
+  "dependencies": {
+    "d3-quadtree": "^1.0.1",
+    "d3-scale": "^1.0.3",
+    "lodash": "^4.16.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-istanbul": "^0.11.0",
+    "babel-istanbul-loader": "^0.1.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-lodash": "^3.2.9",
+    "babel-preset-es2015": "^6.16.0",
+    "es6-promise": "^4.0.3",
+    "eslint": "^3.7.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "systemjs": "^0.19.39",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.1"
+  }
+}
