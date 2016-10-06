@@ -1,11 +1,15 @@
 {
   "name": "d3-cluster",
-  "version": "1.0.0-alpha.6",
+  "version": "1.0.0-alpha.7",
   "description": "d3 clustering layout",
   "main": "build/d3-cluster.js",
   "module": "index",
   "jsnext:main": "index",
-  "scripts": {},
+  "scripts": {
+    "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3-quadtree:d3,d3-scale:d3,lodash:lodash -n d3 -o build/d3-cluster.js -- index.js",
+    "test": "TZ=America/Los_Angeles tape 'test/**/*-test.js' && eslint index.js src test",
+    "prepublish": "npm run test && uglifyjs --preamble \"$(preamble)\" build/d3-cluster.js -c -m -o build/d3-cluster.min.js"
+  },
   "author": "Shelby Sturgis",
   "license": "MIT",
   "dependencies": {

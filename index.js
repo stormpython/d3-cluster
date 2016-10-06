@@ -1,1 +1,1 @@
-export { default } from './src/cluster';
+export { default as cluster } from './src/cluster';
