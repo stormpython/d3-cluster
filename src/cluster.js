@@ -2,13 +2,19 @@
 import { scaleLinear } from 'd3-scale';
 import { cloneDeep, isEqual, isFunction } from 'lodash';
 
+function isMissing(array, obj) {
+  return array.every(function (d) {
+    return !isEqual(d, obj);
+  });
+}
+
 export default function () {
-  var x = function (d) { return d[0] };
-  var y = function (d) { return d[1] };
+  var x = function (d) { return d[0]; };
+  var y = function (d) { return d[1]; };
   var radius = function (d) { return d[2]; };
   var xScale = scaleLinear();
   var yScale = scaleLinear();
-  var centroid = function (p0, p1) { return (p1 + p0) / 2 };
+  var centroid = function (p0, p1) { return (p1 + p0) / 2; };
 
   function X(d, i) {
     return xScale(x.call(this, d, i));
@@ -38,7 +44,7 @@ export default function () {
     var targetPoints = cloneDeep(modifiedData); // copy of data
 
     modifiedData.forEach(function (p) {
-      if (overlappingPoints.indexOf(p) === -1) {
+      if (isMissing(overlappingPoints, p)) {
         p.overlap = [];
 
         clusteredPoints.push(p);
@@ -57,9 +63,7 @@ export default function () {
         });
 
         targetPoints = targetPoints.filter(function (d) {
-          return p.overlap.every(function (e) {
-            return !isEqual(e, d);
-          });
+          return isMissing(p.overlap, d);          
         });
       }
     });
