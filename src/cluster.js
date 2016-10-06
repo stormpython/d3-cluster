@@ -5,7 +5,7 @@ import { cloneDeep, isEqual, isFunction } from 'lodash';
 export default function () {
   var x = function (d) { return d[0] };
   var y = function (d) { return d[1] };
-  var radius = function (d) { return d[2] };
+  var radius = function (d) { return d[2]; };
   var xScale = scaleLinear();
   var yScale = scaleLinear();
   var centroid = function (p0, p1) { return (p1 + p0) / 2 };
@@ -48,7 +48,7 @@ export default function () {
             var distance = Math.sqrt(Math.pow(Math.abs(t.x - p.x), 2) +
               Math.pow(Math.abs(t.y - p.y), 2));
 
-            if (distance < t.radius + p.radius) {
+            if (distance < (t.radius + p.radius)) {
               t.clustered = true;
               p.overlap.push(t);
               overlappingPoints.push(t);
