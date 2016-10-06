@@ -44,7 +44,7 @@ export default function () {
         clusteredPoints.push(p);
 
         targetPoints.forEach(function (t) {
-          if (!isEqual(t, p) {
+          if (!isEqual(t, p)) {
             var distance = Math.sqrt(Math.pow(Math.abs(t.x - p.x), 2) +
               Math.pow(Math.abs(t.y - p.y), 2));
 
