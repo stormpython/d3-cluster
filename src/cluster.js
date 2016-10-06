@@ -1,6 +1,6 @@
 // import quadtree from 'd3-quadtree';
 import { scaleLinear } from 'd3-scale';
-import { cloneDeep, isFunction } from 'lodash';
+import { cloneDeep, isEqual, isFunction } from 'lodash';
 
 export default function () {
   var x = function (d) { return d[0] };
@@ -21,9 +21,8 @@ export default function () {
   function clusterize(data) {
     var clusteredPoints = [];
     var overlappingPoints = [];
-    var targetPoints = cloneDeep(data); // copy of data
 
-    data
+    var modifiedData = data
       .sort(function (a, b) {
         return radius.call(this, b) - radius.call(this, a);
       })
@@ -34,33 +33,38 @@ export default function () {
           radius: radius.call(this, d, i),
           point: cloneDeep(d) // copy of original data point
         };
-      })
-      .forEach(function (p) {
-        if (overlappingPoints.indexOf(p) === -1) {
-          p.overlap = [];
-
-          clusteredPoints.push(p);
-
-          targetPoints.forEach(function (t) {
-            if (t !== p) {
-              var distance = Math.sqrt(Math.pow(Math.abs(t.x - p.x), 2) +
-                Math.pow(Math.abs(t.y - p.y), 2));
-
-              if (distance < t.radius + p.radius) {
-                t.clustered = true;
-                p.overlap.push(t);
-                overlappingPoints.push(t);
-              }
-            }
-          });
-
-          targetPoints = targetPoints.filter(function (d) {
-            p.overlap.indexOf(d) === -1;
-          });
-        }
       });
 
-      return clusteredPoints;
+    var targetPoints = cloneDeep(modifiedData); // copy of data
+
+    modifiedData.forEach(function (p) {
+      if (overlappingPoints.indexOf(p) === -1) {
+        p.overlap = [];
+
+        clusteredPoints.push(p);
+
+        targetPoints.forEach(function (t) {
+          if (!isEqual(t, p) {
+            var distance = Math.sqrt(Math.pow(Math.abs(t.x - p.x), 2) +
+              Math.pow(Math.abs(t.y - p.y), 2));
+
+            if (distance < t.radius + p.radius) {
+              t.clustered = true;
+              p.overlap.push(t);
+              overlappingPoints.push(t);
+            }
+          }
+        });
+
+        targetPoints = targetPoints.filter(function (d) {
+          return p.overlap.every(function (e) {
+            return !isEqual(e, d);
+          });
+        });
+      }
+    });
+
+    return clusteredPoints;
     // quadtree()
     //   .x(d => d.x)
     //   .y(d => d.y)
