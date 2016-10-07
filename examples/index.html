@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>Scatter Collision</title>
+  <meta charset="utf-8" />
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js"></script>
+<script src="../build/d3-cluster.js"></script>
+</head>
+<style>
+  svg {
+    height: 1000px;
+    width: 1000px;
+    border: 1px solid lightgray;
+  }
+</style>
+<body>
+
+<div id="viz">
+  <svg class="main">
+  </svg>
+</div>
+</body>
+  <footer>
+<script>
+
+function greedyCollision(data, radius) {
+    const clusteredPoints = []
+    const collidedPoints = []
+
+    data = data.sort((a,b) => b[radius] - a[radius])
+
+    let targetPoints = [...data]
+
+    data.forEach(sPoint => {
+        if (collidedPoints.indexOf(sPoint) === -1) {
+            sPoint.overlap = []
+            clusteredPoints.push(sPoint)
+            targetPoints.forEach(tPoint => {
+                if (tPoint !== sPoint) {
+                    const distance = Math.sqrt(Math.pow(Math.abs(tPoint.x - sPoint.x),2) + Math.pow(Math.abs(tPoint.y - sPoint.y), 2))
+                    if (distance < tPoint[radius] + sPoint[radius]) {
+                        tPoint.clustered = true
+                        sPoint.overlap.push(tPoint)
+                        collidedPoints.push(tPoint)
+                    }
+                }
+            })
+            targetPoints = targetPoints.filter(d => sPoint.overlap.indexOf(d) === -1)
+        }
+    })
+
+    return clusteredPoints
+
+}
+const colors = [
+    "#00a2ce",
+    "#4d430c",
+    "#b3331d",
+    "#b6a756"
+]
+
+
+const testData = []
+for (let x=1;x<5000;x++) {
+    testData.push({ x: Math.random() * 1000, y: Math.random() * 1000, r: 1 + Math.random() * 10, color: colors[x%4] })
+}
+
+const cluster = d3.cluster().x(d => d.x).y(d => d.y).radius(3)
+
+const collided = cluster(testData)
+
+console.log(cluster)
+
+d3.select("svg")
+  .selectAll("circle")
+  .data(testData)
+  .enter()
+  .append("circle")
+  .attr("r", d => d.r)
+  .attr("cx", d => d.x)
+  .attr("cy", d => d.y)
+  .style("fill-opacity", 0.5)
+
+d3.select("svg")
+  .selectAll("circle.collision")
+  .data(collided)
+  .enter()
+  .append("circle")
+  .attr("r", d => d.r)
+  .attr("cx", d => d.x)
+  .attr("cy", d => d.y)
+  .style("fill", "none")
+  .style("stroke", "red")
+  .style("stroke-width", d => d.overlap.length + 1)
+
+</script>
+  </footer>
+
+</html>

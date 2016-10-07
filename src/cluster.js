@@ -38,7 +38,7 @@ export default function () {
         };
       })
       .sort(function (a, b) {
-        return b.radius - a.radius;
+        return b.radius - a.radius
       });
 
     var targetPoints = cloneDeep(modifiedData); // copy of data
