@@ -1,14 +1,15 @@
 {
   "name": "d3-cluster",
-  "version": "1.0.0-alpha.8",
+  "version": "1.0.0-alpha.9",
   "description": "d3 clustering layout",
   "main": "build/d3-cluster.js",
   "module": "index",
   "jsnext:main": "index",
   "scripts": {
-    "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3-quadtree:d3,d3-scale:d3,lodash:lodash -n d3 -o build/d3-cluster.js -- index.js",
-    "test": "TZ=America/Los_Angeles tape 'test/**/*-test.js' && eslint index.js src test",
-    "prepublish": "npm run test && uglifyjs --preamble \"$(preamble)\" build/d3-cluster.js -c -m -o build/d3-cluster.min.js"
+    "pretest": "rm -rf build && mkdir build && rollup -f umd -g d3-quadtree:d3,d3-scale:d3 -n d3 -o build/d3-cluster.js -- index.js",
+    "test": "tape 'test/**/*-test.js' && eslint index.js src test",
+    "prepublish": "npm run test && uglifyjs build/d3-cluster.js -c -m -o build/d3-cluster.min.js",
+    "postpublish": "zip -j build/d3-cluster.zip -- LICENSE README.md build/d3-cluster.js build/d3-cluster.min.js"
   },
   "author": "Shelby Sturgis",
   "license": "MIT",
@@ -19,7 +20,6 @@
   },
   "devDependencies": {
     "eslint": "2",
-    "package-preamble": "0.0",
     "rollup": "0.34",
     "tape": "4",
     "uglify-js": "2"

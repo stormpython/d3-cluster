@@ -1,9 +1,9 @@
 // import quadtree from 'd3-quadtree';
 import { scaleLinear } from 'd3-scale';
-import { cloneDeep, isEqual, isFunction } from 'lodash';
+import { cloneDeep, isEqual } from './utils';
 
-function isMissing(array, obj) {
-  return array.every(function (d) {
+function isMissing(arr, obj) {
+  return arr.every(function (d) {
     return !isEqual(d, obj);
   });
 }
@@ -63,37 +63,12 @@ export default function () {
         });
 
         targetPoints = targetPoints.filter(function (d) {
-          return isMissing(p.overlap, d);          
+          return isMissing(p.overlap, d);
         });
       }
     });
 
     return clusteredPoints;
-    // quadtree()
-    //   .x(d => d.x)
-    //   .y(d => d.y)
-    //   .addAll(modifiedData)
-    //   .visit((d, x0, y0, x1, y1) => {
-    //     if (d.data) { clusteredData.push(d.data); }
-    //
-    //     // if pixel width < tolerance value, cluster points
-    //     if ((x1 - x0) < tolerance) {
-    //       let points = flattenDeep(d);
-    //       points = points.filter(e => e);
-    //
-    //       clusteredData.push({
-    //         x: centroid.call(null, x0, x1, points.map(e => e.x)),
-    //         y: centroid.call(null, y0, y1, points.map(e => e.y)),
-    //         points,
-    //       });
-    //
-    //       return true; // Stop here
-    //     }
-    //
-    //     return false;
-    //   });
-    //
-    // return clusteredData;
   }
 
   function layout(data) {
@@ -104,42 +79,42 @@ export default function () {
   layout.x = function (_) {
     if (!arguments.length) { return x; }
 
-    x = isFunction(_) ? _ : x;
+    x = typeof _ === 'function' ? _ : x;
     return layout;
   };
 
   layout.y = function (_) {
     if (!arguments.length) { return y; }
 
-    y = isFunction(_) ? _ : y;
+    y = typeof _  === 'function' ? _ : y;
     return layout;
   };
 
   layout.radius = function (_) {
     if (!arguments.length) { return radius; }
 
-    radius = isFunction(_) ? _ : radius;
+    radius = typeof _ === 'function' ? _ : radius;
     return layout;
   };
 
   layout.centroid = function (_) {
     if (!arguments.length) { return centroid; }
 
-    centroid = isFunction(_) ? _ : centroid;
+    centroid = typeof _ === 'function' ? _ : centroid;
     return layout;
   };
 
   layout.xScale = function (_) {
     if (!arguments.length) { return xScale; }
 
-    xScale = isFunction(_) ? _ : xScale;
+    xScale = typeof _ === 'function' ? _ : xScale;
     return layout;
   };
 
   layout.yScale = function (_) {
     if (!arguments.length) { return yScale; }
 
-    yScale = isFunction(_) ? _ : yScale;
+    yScale = typeof _ === 'function' ? _ : yScale;
     return layout;
   };
 
