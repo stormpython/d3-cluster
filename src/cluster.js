@@ -29,9 +29,6 @@ export default function () {
     var overlappingPoints = [];
 
     var modifiedData = data
-      .sort(function (a, b) {
-        return radius.call(this, b) - radius.call(this, a);
-      })
       .map(function (d, i) {
         return {
           x: X.call(this, d, i),
@@ -39,6 +36,9 @@ export default function () {
           radius: radius.call(this, d, i),
           point: cloneDeep(d) // copy of original data point
         };
+      })
+      .sort(function (a, b) {
+        return b.radius - a.radius;
       });
 
     var targetPoints = cloneDeep(modifiedData); // copy of data
