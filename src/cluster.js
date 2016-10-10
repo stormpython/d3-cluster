@@ -26,7 +26,7 @@ export default function () {
 
   function clusterize(data) {
     var clusteredPoints = [];
-    var overlappingPoints = [];
+    var overlappingPoints = []; // What is the point of this?
 
     var modifiedData = data
       .map(function (d, i) {
@@ -38,7 +38,7 @@ export default function () {
         };
       })
       .sort(function (a, b) {
-        return b.radius - a.radius
+        return b.radius - a.radius;
       });
 
     var targetPoints = cloneDeep(modifiedData); // copy of data
@@ -92,8 +92,9 @@ export default function () {
 
   layout.radius = function (_) {
     if (!arguments.length) { return radius; }
+    if (typeof _ === 'function') { radius = _; }
+    if (typeof _ === 'number') { radius = function () { return _; }; }
 
-    radius = typeof _ === 'function' ? _ : radius;
     return layout;
   };
 

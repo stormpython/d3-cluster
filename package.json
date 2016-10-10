@@ -15,8 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "d3-quadtree": "^1.0.1",
-    "d3-scale": "^1.0.3",
-    "lodash": "^4.16.2"
+    "d3-scale": "^1.0.3"
   },
   "devDependencies": {
     "eslint": "2",

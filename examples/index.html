@@ -65,11 +65,9 @@ for (let x=1;x<5000;x++) {
     testData.push({ x: Math.random() * 1000, y: Math.random() * 1000, r: 1 + Math.random() * 10, color: colors[x%4] })
 }
 
-const cluster = d3.cluster().x(d => d.x).y(d => d.y).radius(3)
+const cluster = d3.cluster().x(d => d.x).y(d => d.y).radius(d => d.r);
 
 const collided = cluster(testData)
-
-console.log(cluster)
 
 d3.select("svg")
   .selectAll("circle")
@@ -86,7 +84,7 @@ d3.select("svg")
   .data(collided)
   .enter()
   .append("circle")
-  .attr("r", d => d.r)
+  .attr("r", d => d.radius)
   .attr("cx", d => d.x)
   .attr("cy", d => d.y)
   .style("fill", "none")
