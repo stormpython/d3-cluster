@@ -41,7 +41,8 @@ export default function () {
         return b.radius - a.radius;
       });
 
-    var targetPoints = cloneDeep(modifiedData); // copy of data
+//    var targetPoints = cloneDeep(modifiedData); // copy of data
+    var targetPoints = modifiedData; // copy of data
 
     modifiedData.forEach(function (p) {
       if (isMissing(overlappingPoints, p)) {
@@ -50,7 +51,7 @@ export default function () {
         clusteredPoints.push(p);
 
         targetPoints.forEach(function (t) {
-          if (!isEqual(t, p)) {
+          if (t !== p) {
             var distance = Math.sqrt(Math.pow(Math.abs(t.x - p.x), 2) +
               Math.pow(Math.abs(t.y - p.y), 2));
 

@@ -23,35 +23,6 @@
   <footer>
 <script>
 
-function greedyCollision(data, radius) {
-    const clusteredPoints = []
-    const collidedPoints = []
-
-    data = data.sort((a,b) => b[radius] - a[radius])
-
-    let targetPoints = [...data]
-
-    data.forEach(sPoint => {
-        if (collidedPoints.indexOf(sPoint) === -1) {
-            sPoint.overlap = []
-            clusteredPoints.push(sPoint)
-            targetPoints.forEach(tPoint => {
-                if (tPoint !== sPoint) {
-                    const distance = Math.sqrt(Math.pow(Math.abs(tPoint.x - sPoint.x),2) + Math.pow(Math.abs(tPoint.y - sPoint.y), 2))
-                    if (distance < tPoint[radius] + sPoint[radius]) {
-                        tPoint.clustered = true
-                        sPoint.overlap.push(tPoint)
-                        collidedPoints.push(tPoint)
-                    }
-                }
-            })
-            targetPoints = targetPoints.filter(d => sPoint.overlap.indexOf(d) === -1)
-        }
-    })
-
-    return clusteredPoints
-
-}
 const colors = [
     "#00a2ce",
     "#4d430c",
@@ -61,11 +32,14 @@ const colors = [
 
 
 const testData = []
-for (let x=1;x<5000;x++) {
+for (let x=1;x<1500;x++) {
     testData.push({ x: Math.random() * 1000, y: Math.random() * 1000, r: 1 + Math.random() * 10, color: colors[x%4] })
 }
 
-const cluster = d3.cluster().x(d => d.x).y(d => d.y).radius(d => d.r);
+const cluster = d3.cluster()
+  .x(d => d.x)
+  .y(d => d.y)
+  .radius(d => d.r);
 
 const collided = cluster(testData)
 
@@ -77,6 +51,7 @@ d3.select("svg")
   .attr("r", d => d.r)
   .attr("cx", d => d.x)
   .attr("cy", d => d.y)
+  .style("fill", "#4f442b")
   .style("fill-opacity", 0.5)
 
 d3.select("svg")
@@ -87,8 +62,9 @@ d3.select("svg")
   .attr("r", d => d.radius)
   .attr("cx", d => d.x)
   .attr("cy", d => d.y)
-  .style("fill", "none")
-  .style("stroke", "red")
+  .style("fill", "#FCBC34")
+  .style("fill-opacity", d => d.overlap.length === 0  ? 1 : 0)
+  .style("stroke", d => d.overlap.length === 0 ? "none" : "#FE9922")
   .style("stroke-width", d => d.overlap.length + 1)
 
 </script>
